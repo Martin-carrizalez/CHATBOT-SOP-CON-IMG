@@ -1,12 +1,5 @@
-# Ignorar archivos de entorno y secretos
 .env
-
-# Ignorar directorios de bases de datos
-chroma_db_sop/
-
-# Ignorar el entorno virtual de Python
 .venv/
-
-# Ignorar cachés de Python
 __pycache__/
 *.pyc
+.DS_Store
