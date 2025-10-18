@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Estadístico de SOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateX(5px);
+        }
+        
+        .nav-button.prev:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body class="bg-slate-900">
+    
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
+        <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-blue-500 to-yellow-400"></div>
+    </div>
+    
+    <!-- Slide Counter -->
+    <div class="fixed top-4 right-4 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-full text-white text-sm font-semibold z-40">
+        <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+    </div>
+    
+    <!-- Navigation -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 z-40">
+        <button onclick="previousSlide()" class="nav-button prev bg-white/10 backdrop-blur-lg hover:bg-white/20 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Anterior
+        </button>
+        <button onclick="nextSlide()" class="nav-button bg-gradient-to-r from-blue-500 to-yellow-400 hover:from-blue-600 hover:to-yellow-500 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2">
+            Siguiente
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- SLIDE 1: Portada -->
+    <div class="slide active min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-8">
+        <div class="text-center max-w-5xl">
+            <div class="flex items-center justify-center gap-4 mb-8">
+                <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center">
+                    <svg class="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                </div>
+            </div>
+            <h1 class="text-7xl font-bold text-white mb-6">Análisis Estadístico de Biomarcadores</h1>
+            <h2 class="text-4xl text-blue-300 mb-8">Síndrome de Ovario Poliquístico (SOP)</h2>
+            <div class="h-1 w-48 bg-yellow-400 mx-auto mb-8"></div>
+            <p class="text-2xl text-slate-300 mb-12">Clúster de Ingeniería Biomédica del Estado de Jalisco</p>
+            <p class="text-lg text-slate-400">Usa las flechas para navegar →</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Perfil Profesional -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-8">
+        <div class="max-w-6xl w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-white mb-4">Ventaja Diferencial</h1>
+                <div class="h-1 w-32 bg-yellow-400 mx-auto mb-6"></div>
+                <p class="text-2xl text-blue-200">Análisis Bioinformático con Criterio Clínico</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 mb-10">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-blue-400/30 hover-scale">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-500 p-3 rounded-lg">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white">QFB</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-white text-lg"><span class="font-semibold text-yellow-400">•</span> Conocimiento bioquímico del eje hormonal y fisiopatología del SOP</p>
+                        <p class="text-white text-lg"><span class="font-semibold text-yellow-400">•</span> Interpretación clínica de valores de referencia y criterios de Rotterdam</p>
+                        <p class="text-white text-lg"><span class="font-semibold text-yellow-400">•</span> Selección estratégica de biomarcadores relevantes</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-blue-400/30 hover-scale">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-yellow-500 p-3 rounded-lg">
+                            <svg class="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white">Data Science + IA</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-white text-lg"><span class="font-semibold text-yellow-400">•</span> ANOVA, pruebas de hipótesis, riesgos relativos y probabilidades</p>
+                        <p class="text-white text-lg"><span class="font-semibold text-yellow-400">•</span> Machine Learning para modelos predictivos y clasificación</p>
+                        <p class="text-white text-lg"><span class="font-semibold text-yellow-400">•</span> Visualización de datos y dashboards interactivos</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-600 to-yellow-500 rounded-2xl p-8 text-center">
+                <h3 class="text-3xl font-bold text-white mb-3">= Resultados con Impacto Clínico Real</h3>
+                <p class="text-xl text-white/90">No solo identifico correlaciones estadísticas, <span class="font-bold">explico el mecanismo bioquímico</span> y su <span class="font-bold">aplicación clínica inmediata</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: El Problema -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 p-8">
+        <div class="max-w-5xl">
+            <h1 class="text-6xl font-bold text-white mb-8">El Problema</h1>
+            <div class="h-1 w-32 bg-yellow-400 mb-12"></div>
+            
+            <div class="grid grid-cols-3 gap-6 mb-12">
+                <div class="bg-red-500/20 border-2 border-red-500 rounded-2xl p-8 text-center hover-scale">
+                    <div class="text-6xl font-bold text-red-400 mb-4">1 de 10</div>
+                    <p class="text-white text-xl">mujeres tiene SOP</p>
+                </div>
+                <div class="bg-orange-500/20 border-2 border-orange-500 rounded-2xl p-8 text-center hover-scale">
+                    <div class="text-6xl font-bold text-orange-400 mb-4">2-3 años</div>
+                    <p class="text-white text-xl">promedio para diagnóstico</p>
+                </div>
+                <div class="bg-yellow-500/20 border-2 border-yellow-500 rounded-2xl p-8 text-center hover-scale">
+                    <div class="text-6xl font-bold text-yellow-400 mb-4">70%</div>
+                    <p class="text-white text-xl">casos sin diagnosticar</p>
+                </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-blue-400/30">
+                <h3 class="text-2xl font-bold text-white mb-4">Consecuencias del diagnóstico tardío:</h3>
+                <ul class="space-y-3 text-white text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 text-2xl">•</span>
+                        <span>Infertilidad y complicaciones reproductivas</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 text-2xl">•</span>
+                        <span>Desarrollo de diabetes tipo 2 y síndrome metabólico</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 text-2xl">•</span>
+                        <span>Impacto psicológico: ansiedad, depresión, baja autoestima</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Objetivo -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-indigo-900 p-8">
+        <div class="max-w-4xl text-center">
+            <h1 class="text-6xl font-bold text-white mb-8">Objetivo</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+            
+            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border-2 border-yellow-400/50">
+                <p class="text-3xl text-white leading-relaxed">
+                    Identificar <span class="font-bold text-yellow-400">patrones y diferencias significativas</span> en variables clínicas, hormonales y de estilo de vida entre mujeres <span class="font-bold text-blue-300">con y sin diagnóstico de SOP</span> usando métodos de probabilidad y estadística
+                </p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 mt-12">
+                <div class="bg-blue-500/20 rounded-xl p-6">
+                    <div class="text-4xl mb-3">🎯</div>
+                    <h3 class="text-white font-bold text-lg mb-2">Precisión</h3>
+                    <p class="text-blue-200 text-sm">Análisis estadístico riguroso</p>
+                </div>
+                <div class="bg-yellow-500/20 rounded-xl p-6">
+                    <div class="text-4xl mb-3">⚡</div>
+                    <h3 class="text-white font-bold text-lg mb-2">Velocidad</h3>
+                    <p class="text-yellow-200 text-sm">Diagnóstico más rápido</p>
+                </div>
+                <div class="bg-green-500/20 rounded-xl p-6">
+                    <div class="text-4xl mb-3">💡</div>
+                    <h3 class="text-white font-bold text-lg mb-2">Innovación</h3>
+                    <p class="text-green-200 text-sm">Base para FemTech</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Base de Datos -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 p-8">
+        <div class="max-w-6xl w-full">
+            <h1 class="text-5xl font-bold text-white mb-8 text-center">Base de Datos</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+
+            <div class="grid grid-cols-3 gap-6">
+                <div class="bg-blue-500/20 backdrop-blur-lg rounded-2xl p-8 border border-blue-400/50 hover-scale">
+                    <h3 class="text-2xl font-bold text-blue-300 mb-6 flex items-center gap-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        Antropométricas
+                    </h3>
+                    <ul class="space-y-3 text-white text-base">
+                        <li>• BMI (Índice de masa corporal)</li>
+                        <li>• Waist:Hip Ratio</li>
+                        <li>• Follicle No. (L/R)</li>
+                        <li>• Avg. Follicle Size</li>
+                    </ul>
+                </div>
+
+                <div class="bg-yellow-500/20 backdrop-blur-lg rounded-2xl p-8 border border-yellow-400/50 hover-scale">
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-6 flex items-center gap-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                        Biomarcadores
+                    </h3>
+                    <ul class="space-y-3 text-white text-base">
+                        <li>• FSH, LH, FSH/LH ratio</li>
+                        <li>• AMH (Hormona antimülleriana)</li>
+                        <li>• PRG (Progesterona)</li>
+                        <li>• PRL, TSH</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-500/20 backdrop-blur-lg rounded-2xl p-8 border border-green-400/50 hover-scale">
+                    <h3 class="text-2xl font-bold text-green-300 mb-6 flex items-center gap-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Estilo de Vida
+                    </h3>
+                    <ul class="space-y-3 text-white text-base">
+                        <li>• Weight gain</li>
+                        <li>• Hair loss</li>
+                        <li>• Pimples (Acné)</li>
+                        <li>• Regular Exercise</li>
+                        <li>• Fast food consumption</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-center">
+                <p class="text-white text-xl"><span class="font-bold">Variable objetivo:</span> PCOS (Y/N) → 0 = No SOP, 1 = SOP</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: Metodología -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 to-purple-900 p-8 overflow-y-auto">
+        <div class="max-w-6xl w-full py-8">
+            <h1 class="text-5xl font-bold text-white mb-8 text-center">Metodología</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-blue-400/30">
+                    <h3 class="text-xl font-bold text-blue-300 mb-4">📊 Análisis Descriptivo</h3>
+                    <ul class="space-y-2 text-white text-sm">
+                        <li>• Medias, medianas, desviaciones estándar</li>
+                        <li>• Histogramas y boxplots comparativos</li>
+                        <li>• Frecuencias para variables categóricas</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-yellow-400/30">
+                    <h3 class="text-xl font-bold text-yellow-300 mb-4">🔬 Contrastes de Hipótesis</h3>
+                    <ul class="space-y-2 text-white text-sm">
+                        <li>• T-test / Mann-Whitney</li>
+                        <li>• Chi-cuadrado para asociaciones</li>
+                        <li>• Valores p < 0.05 para significancia</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-green-400/30">
+                    <h3 class="text-xl font-bold text-green-300 mb-4">📈 ANOVA</h3>
+                    <ul class="space-y-2 text-white text-sm">
+                        <li>• Comparar hormonas FSH, LH, AMH</li>
+                        <li>• ANOVA de dos factores (SOP × Estilo de vida)</li>
+                        <li>• Análisis de interacciones</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-red-400/30">
+                    <h3 class="text-xl font-bold text-red-300 mb-4">🎯 Correlaciones y Riesgos</h3>
+                    <ul class="space-y-2 text-white text-sm">
+                        <li>• Pearson/Spearman</li>
+                        <li>• Odds Ratio / Riesgo Relativo</li>
+                        <li>• Riesgo de SOP por síntomas</li>
+                    </ul>
+                </div>
+
+                <div class="col-span-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-white mb-4">🧮 Probabilidad Aplicada</h3>
+                    <div class="grid grid-cols-2 gap-4 text-white text-sm">
+                        <div>
+                            <p class="font-semibold mb-2">Probabilidades condicionales:</p>
+                            <p>• P(SOP | AMH > umbral)</p>
+                            <p>• P(SOP | FSH/LH < 1)</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold mb-2">Teorema de Bayes:</p>
+                            <p>Estimar P(SOP) dado perfil clínico parcial</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Hipótesis -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-blue-900 p-8">
+        <div class="max-w-5xl">
+            <h1 class="text-5xl font-bold text-white mb-8 text-center">Hipótesis de Trabajo</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+
+            <div class="space-y-8">
+                <div class="bg-red-500/20 backdrop-blur-lg rounded-2xl p-10 border-2 border-red-400 hover-scale">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-500 text-white text-3xl font-bold rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                            H₀
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Hipótesis Nula</h3>
+                            <p class="text-xl text-red-100">
+                                No existen diferencias significativas en los perfiles hormonales y clínicos entre mujeres con y sin SOP
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-500/20 backdrop-blur-lg rounded-2xl p-10 border-2 border-green-400 hover-scale">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-green-500 text-white text-3xl font-bold rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                            H₁
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Hipótesis Alternativa</h3>
+                            <p class="text-xl text-green-100">
+                                Existen diferencias significativas en al menos una de las variables (FSH, LH, AMH, IMC, síntomas clínicos)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-yellow-500/20 backdrop-blur-lg rounded-xl p-6 border border-yellow-400/50">
+                <p class="text-white text-lg text-center">
+                    <span class="font-bold text-yellow-400">Nivel de significancia:</span> α = 0.05 (95% de confianza)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: Resultados Esperados -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-indigo-900 p-8">
+        <div class="max-w-6xl">
+            <h1 class="text-5xl font-bold text-white mb-8 text-center">Resultados Esperados</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+
+            <div class="grid grid-cols-2 gap-6 mb-8">
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-purple-400/30 hover-scale">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold text-purple-300 mb-4">Variables Discriminantes</h3>
+                    <p class="text-white">AMH y FSH/LH con diferencias significativas entre grupos SOP vs No-SOP</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-blue-400/30 hover-scale">
+                    <div class="text-4xl mb-4">⚠️</div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-4">Factores de Riesgo</h3>
+                    <p class="text-white">Cuantificados con Odds Ratio y probabilidades condicionales</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-green-400/30 hover-scale">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold text-green-300 mb-4">Modelos Predictivos</h3>
+                    <p class="text-white">Probabilidad básica para predecir pertenencia al grupo SOP</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-yellow-400/30 hover-scale">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-4">Visualizaciones</h3>
+                    <p class="text-white">Boxplots, gráficos de barras e intervalos de confianza del 95%</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-4 text-center">📋 Entregables</h3>
+                <div class="grid grid-cols-3 gap-4 text-white">
+                    <div class="text-center">
+                        <p class="font-semibold mb-2">Reporte Estadístico</p>
+                        <p class="text-sm">Descriptivos, ANOVA, valores p</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-semibold mb-2">Gráficas y Tablas</p>
+                        <p class="text-sm">Visualizaciones claras</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-semibold mb-2">Conclusión Ejecutiva</p>
+                        <p class="text-sm">Variables más relevantes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 9: Impacto Triple -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-8">
+        <div class="max-w-6xl w-full">
+            <h1 class="text-5xl font-bold text-white mb-8 text-center">Impacto Triple</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+
+            <div class="space-y-6">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-8 border-2 border-blue-300 hover-scale">
+                    <div class="flex items-start gap-6">
+                        <div class="text-6xl">🎓</div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-white mb-4">Académico</h3>
+                            <p class="text-xl text-blue-100">
+                                Los estudiantes aplicarán probabilidad, estadística inferencial y ANOVA en un caso real biomédico, desarrollando competencias para la industria
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-green-600 to-emerald-500 rounded-2xl p-8 border-2 border-green-300 hover-scale">
+                    <div class="flex items-start gap-6">
+                        <div class="text-6xl">🏥</div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-white mb-4">Clínico</h3>
+                            <p class="text-xl text-green-100">
+                                Se destacan biomarcadores y factores de riesgo clave para sospecha de SOP, facilitando el diagnóstico temprano y mejorando la calidad de vida de las pacientes
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-8 border-2 border-purple-300 hover-scale">
+                    <div class="flex items-start gap-6">
+                        <div class="text-6xl">📱</div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-white mb-4">FemTech</h3>
+                            <p class="text-xl text-purple-100">
+                                Genera bases científicas para futuros dispositivos de monitoreo hormonal no invasivo, abriendo oportunidades en tecnología para la salud femenina
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: Cierre y Contacto -->
+    <div class="slide min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-8">
+        <div class="max-w-5xl text-center">
+            <h1 class="text-6xl font-bold text-white mb-8">¿Preguntas?</h1>
+            <div class="h-1 w-32 bg-yellow-400 mx-auto mb-12"></div>
+
+            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-blue-400/50 mb-12">
+                <h2 class="text-4xl font-bold text-white mb-6">Transformando Datos en Diagnósticos</h2>
+                <p class="text-2xl text-blue-200 mb-8">
+                    Análisis estadístico riguroso + Conocimiento clínico = Impacto real en salud femenina
+                </p>
+                <div class="flex justify-center gap-8">
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-yellow-400 mb-2">10+</div>
+                        <p class="text-white">Variables Analizadas</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-green-400 mb-2">95%</div>
+                        <p class="text-white">Nivel de Confianza</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-blue-400 mb-2">3</div>
+                        <p class="text-white">Áreas de Impacto</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-600 to-yellow-500 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-4">Clúster de Ingeniería Biomédica de Jalisco</h3>
+                <div class="flex justify-center gap-8 text-white text-lg">
+                    <div>📧 carlosfregoso@clusteringenieria.bio</div>
+                    <div>🌐 www.clusteringenieria.bio</div>
+                </div>
+                <p class="text-white/80 mt-4">Av. Faro 2350, interior 4B. Edificio MIND. Col. Verde Valle, Guadalajara, Jalisco</p>
+            </div>
+
+            <p class="text-slate-400 mt-8 text-lg">Gracias por su atención</p>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+        
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index + 1 === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('totalSlides').textContent = totalSlides;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+        
+        function previousSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+        
+        // Touch navigation for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                previousSlide();
+            }
+        }
+        
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
