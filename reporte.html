@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Avances - Proyecto ML PCOS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 4rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin: 20px 0 15px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        tbody tr:hover {
+            background: #e9ecef;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .badge-critical {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .badge-warning {
+            background: #ffd93d;
+            color: #333;
+        }
+        
+        .badge-success {
+            background: #6bcf7f;
+            color: white;
+        }
+        
+        .badge-info {
+            background: #4ecdc4;
+            color: white;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.3s;
+        }
+        
+        .next-steps {
+            background: linear-gradient(135deg, #6bcf7f 0%, #4ecdc4 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .next-steps h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .next-steps ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .next-steps li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .next-steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        
+        /* Hover effect for back button */
+        a[href="index.html"]:hover {
+            background: rgba(255,255,255,0.2) !important;
+            transform: translateX(-5px);
+        }
+        
+        .alert {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .alert-danger {
+            background: #ffe5e5;
+            border-left: 5px solid #ff6b6b;
+            color: #c92a2a;
+        }
+        
+        .alert-warning {
+            background: #fff9db;
+            border-left: 5px solid #ffd93d;
+            color: #8b6914;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- BOTÓN DE REGRESO -->
+    <div style="position: fixed; top: 1rem; left: 1rem; z-index: 100;">
+        <a href="index.html" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); color: white; padding: 0.75rem 1.5rem; border-radius: 2rem; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.2);">
+            ← Inicio
+        </a>
+    </div>
+    
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>📊 Reporte de Avances</h1>
+            <p>Proyecto Machine Learning - Síndrome de Ovario Poliquístico (SOP)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Fecha: Octubre 2025</p>
+        </div>
+
+        <div class="content">
+            <!-- RESUMEN EJECUTIVO -->
+            <div class="section">
+                <h2><span class="icon">🎯</span>Resumen Ejecutivo</h2>
+                <p><strong>Objetivo:</strong> Desarrollar modelos de Machine Learning para predicción de SOP, clustering de fenotipos y sistema de severidad con chatbot RAG educativo.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Pacientes</div>
+                        <div class="stat-value">541</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Variables</div>
+                        <div class="stat-value">42</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Con SOP</div>
+                        <div class="stat-value">177</div>
+                        <small style="color: #666;">32.7%</small>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Sin SOP</div>
+                        <div class="stat-value">364</div>
+                        <small style="color: #666;">67.3%</small>
+                    </div>
+                </div>
+
+                <h3>Progreso General del Proyecto</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%;">60% Completado</div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #6bcf7f 0%, #4ecdc4 100%); padding: 20px; border-radius: 10px; margin-top: 20px; color: white;">
+                    <h4 style="color: white; margin-bottom: 10px;">🎉 Hito Importante Alcanzado</h4>
+                    <p style="margin: 0;"><strong>Chatbot RAG Multimodal Desplegado:</strong> Sistema completo con análisis de texto, imágenes, videos educativos y podcasts en producción.</p>
+                    <p style="margin-top: 10px; margin-bottom: 0;"><a href="https://biomachine-lab.streamlit.app/" target="_blank" style="color: white; text-decoration: underline;">🔗 Ver aplicación en vivo</a></p>
+                </div>
+            </div>
+
+            <!-- DATASET -->
+            <div class="section">
+                <h2><span class="icon">📁</span>Información del Dataset</h2>
+                
+                <h3>Clasificación de Variables</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Cantidad</th>
+                                <th>Tratamiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-success">Continuas</span></td>
+                                <td>27 variables</td>
+                                <td>Análisis de outliers con IQR</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">Conteo</span></td>
+                                <td>3 variables</td>
+                                <td>Revisión manual (No. abortos, Folículos L/R)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-info">Categóricas</span></td>
+                                <td>12 variables</td>
+                                <td>No analizar outliers</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Confirmaciones del Biomédico</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="padding: 10px 0;">✅ <strong>Blood Group:</strong> 11=A+, 12=A-, 13=B+, 14=B-, 15=O+, 16=O-, 17=AB+, 18=AB-</li>
+                    <li style="padding: 10px 0;">✅ <strong>Cycle(R/I):</strong> 2=Regular, 4=Irregular, 5=Caso especial</li>
+                    <li style="padding: 10px 0;">✅ <strong>Cycle length(days):</strong> Días de sangrado menstrual (2-7 días normal)</li>
+                    <li style="padding: 10px 0;">✅ <strong>beta-HCG I/II:</strong> Mediciones total y libre (1.99 = límite de detección)</li>
+                </ul>
+            </div>
+
+            <!-- ANÁLISIS DE OUTLIERS -->
+            <div class="section">
+                <h2><span class="icon">🔍</span>Análisis de Outliers</h2>
+                
+                <div class="alert alert-danger">
+                    <strong>⚠️ Outliers Críticos Detectados:</strong> 3 filas con valores imposibles (errores de captura)
+                </div>
+
+                <h3>Top 3 Outliers Críticos a Eliminar</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fila Excel</th>
+                                <th>Variable</th>
+                                <th>Valor</th>
+                                <th>Normal</th>
+                                <th>Estado</th>
+                                <th>Severidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>331</td>
+                                <td>FSH(mIU/mL)</td>
+                                <td style="color: #ff6b6b; font-weight: bold;">5052</td>
+                                <td>3-10</td>
+                                <td><span class="badge badge-critical">No-SOP</span></td>
+                                <td>1000× mayor</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>457</td>
+                                <td>LH(mIU/mL)</td>
+                                <td style="color: #ff6b6b; font-weight: bold;">2018</td>
+                                <td>2-10</td>
+                                <td><span class="badge badge-critical">SOP</span></td>
+                                <td>400× mayor</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>39</td>
+                                <td>TSH (mIU/L)</td>
+                                <td style="color: #ff6b6b; font-weight: bold;">65</td>
+                                <td>0.4-4</td>
+                                <td><span class="badge badge-critical">No-SOP</span></td>
+                                <td>16× mayor</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Top 10 Variables con Más Outliers</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Variable</th>
+                                <th>Outliers Totales</th>
+                                <th>Outliers Extremos</th>
+                                <th>% del Dataset</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>II beta-HCG(mIU/mL)</td>
+                                <td>78</td>
+                                <td>56</td>
+                                <td>14.4%</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Pulse rate(bpm)</td>
+                                <td>94</td>
+                                <td>5</td>
+                                <td>17.4%</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Cycle length(days)</td>
+                                <td>77</td>
+                                <td>18</td>
+                                <td>14.2%</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>AMH(ng/mL)</td>
+                                <td>52</td>
+                                <td>9</td>
+                                <td>9.6%</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>FSH/LH</td>
+                                <td>48</td>
+                                <td>29</td>
+                                <td>8.9%</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>I beta-HCG(mIU/mL)</td>
+                                <td>46</td>
+                                <td>27</td>
+                                <td>8.5%</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>PRG(ng/mL)</td>
+                                <td>39</td>
+                                <td>10</td>
+                                <td>7.2%</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Vit D3 (ng/mL)</td>
+                                <td>31</td>
+                                <td>4</td>
+                                <td>5.7%</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>RBS(mg/dl)</td>
+                                <td>30</td>
+                                <td>4</td>
+                                <td>5.5%</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>TSH (mIU/L)</td>
+                                <td>27</td>
+                                <td>13</td>
+                                <td>5.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>📊 Resumen:</strong> 180 outliers extremos detectados en 150 filas (27.7% del dataset). Pérdida estimada tras limpieza: 0.6% (3 filas críticas).
+                </div>
+            </div>
+
+            <!-- ESTRATEGIA DE LIMPIEZA -->
+            <div class="section">
+                <h2><span class="icon">🧹</span>Estrategia de Limpieza Propuesta</h2>
+                
+                <h3>Enfoque Híbrido (3 Pasos)</h3>
+                
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">1️⃣ Eliminación de Outliers Críticos</h4>
+                    <ul>
+                        <li>Eliminar 3 filas con errores evidentes (FSH=5052, LH=2018, TSH=65)</li>
+                        <li>Impacto: 0.6% de pérdida de datos</li>
+                        <li>Justificación: Valores imposibles biológicamente</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">2️⃣ Winsorización</h4>
+                    <ul>
+                        <li>Reemplazar outliers extremos con percentil 99</li>
+                        <li>Variables: FSH, LH, TSH, FSH/LH, AMH, beta-HCG I/II</li>
+                        <li>Ventaja: Conserva información, reduce distorsión</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">3️⃣ Mantener Outliers Moderados</h4>
+                    <ul>
+                        <li>BMI alto/bajo, RBS elevado, Folículos numerosos</li>
+                        <li>Son valores reales y valiosos para el análisis</li>
+                        <li>Representan casos de SOP severo o comorbilidades</li>
+                    </ul>
+                </div>
+
+                <h3>Comparación con Kaggle</h3>
+                <p>Análisis previos del mismo dataset (Kaggle) obtuvieron <strong>93-96% accuracy</strong> sin eliminar outliers, usando:</p>
+                <ul>
+                    <li>SMOTE para balanceo de clases</li>
+                    <li>Feature Selection (RFE, Tree-based, Mutual Info)</li>
+                    <li>Ensemble methods (Random Forest, XGBoost, Stacking)</li>
+                    <li>Normalización de datos</li>
+                </ul>
+                <p><strong>Benchmark objetivo:</strong> Alcanzar o superar 93% de accuracy</p>
+            </div>
+
+            <!-- PRÓXIMOS PASOS -->
+            <div class="next-steps">
+                <h3>🚀 Próximos Pasos - Roadmap</h3>
+                
+                <h4 style="margin-top: 20px;">📊 FASE 1: Preparación de Datos (ACTUAL)</h4>
+                <ul>
+                    <li>✅ Análisis Exploratorio de Datos (EDA) completado</li>
+                    <li>✅ Identificación de outliers completada</li>
+                    <li>⏳ Ejecutar limpieza de datos (Winsorización + Eliminación)</li>
+                    <li>⏳ Generar archivo clean_data.csv</li>
+                    <li>⏳ Análisis de correlaciones entre variables</li>
+                    <li>⏳ Feature Engineering (crear variables derivadas)</li>
+                </ul>
+
+                <h4 style="margin-top: 20px;">🤖 FASE 2: Modelado ML</h4>
+                <ul>
+                    <li>⏳ Aplicar SMOTE para balanceo de clases</li>
+                    <li>⏳ Feature Selection (RFE, importancia por árboles)</li>
+                    <li>⏳ Entrenar modelos base: Random Forest, XGBoost, LightGBM</li>
+                    <li>⏳ Optimización de hiperparámetros (GridSearch/Bayesian)</li>
+                    <li>⏳ Stacking Ensemble (combinar mejores modelos)</li>
+                    <li>⏳ Interpretabilidad con SHAP values</li>
+                </ul>
+
+                <h4 style="margin-top: 20px;">🧠 FASE 3: Red Neuronal (Opcional)</h4>
+                <ul>
+                    <li>⏳ Diseñar arquitectura de red neuronal feedforward</li>
+                    <li>⏳ Implementación en TensorFlow/Keras o PyTorch</li>
+                    <li>⏳ Capas: Input (27 features) → Dense(128) → Dropout → Dense(64) → Output(1)</li>
+                    <li>⏳ Funciones de activación: ReLU en capas ocultas, Sigmoid en salida</li>
+                    <li>⏳ Early Stopping y regularización (L1/L2)</li>
+                    <li>⏳ Comparar performance vs modelos tradicionales</li>
+                </ul>
+
+                <h4 style="margin-top: 20px;">📊 FASE 4: Clustering de Fenotipos</h4>
+                <ul>
+                    <li>⏳ K-means, DBSCAN, Gaussian Mixture Models</li>
+                    <li>⏳ Identificar 3-5 fenotipos de SOP</li>
+                    <li>⏳ Caracterización clínica de cada cluster</li>
+                    <li>⏳ Visualización con UMAP/t-SNE</li>
+                </ul>
+
+                <h4 style="margin-top: 20px;">💬 FASE 5: Chatbot RAG Multimodal ⭐ COMPLETADO</h4>
+                <ul>
+                    <li>✅ Procesar PDFs de guías clínicas (ESHRE 2023, etc.)</li>
+                    <li>✅ Crear vector database con ChromaDB</li>
+                    <li>✅ Implementar RAG con Claude API</li>
+                    <li>✅ Sistema de preguntas-respuestas educativas</li>
+                    <li>✅ <strong>Análisis de imágenes médicas</strong> (diagnóstico visual)</li>
+                    <li>✅ <strong>Videos educativos integrados</strong></li>
+                    <li>✅ <strong>Podcasts sobre SOP</strong></li>
+                    <li>✅ <strong>Deploy en Streamlit Cloud</strong> - https://biomachine-lab.streamlit.app/</li>
+                </ul>
+                <div style="background: linear-gradient(135deg, #6bcf7f 0%, #4ecdc4 100%); padding: 20px; border-radius: 10px; margin-top: 10px; color: white;">
+                    <strong>🎉 FASE COMPLETADA Y AVANZADA</strong>
+                    <p style="margin-top: 10px; margin-bottom: 0;">El chatbot RAG supera las expectativas iniciales con capacidades multimodales (texto, imágenes, videos, audio) y ya está desplegado en producción.</p>
+                </div>
+
+                <h4 style="margin-top: 20px;">🎨 FASE 6: Dashboard Integrado</h4>
+                <ul>
+                    <li>✅ <strong>Chatbot RAG Multimodal desplegado</strong> (texto, imágenes, videos, podcasts)</li>
+                    <li>✅ <strong>Deploy en Streamlit Cloud</strong> - https://biomachine-lab.streamlit.app/</li>
+                    <li>⏳ Integrar predictor de SOP (input features → probabilidad)</li>
+                    <li>⏳ Visualización de fenotipos y clustering</li>
+                    <li>⏳ Explicabilidad de predicciones (SHAP plots)</li>
+                    <li>⏳ Unificar componentes en dashboard único</li>
+                </ul>
+            </div>
+
+            <!-- ARCHIVOS GENERADOS -->
+            <div class="section">
+                <h2><span class="icon">📁</span>Archivos Generados</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Archivo</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PCOS_data_1.xlsx</td>
+                                <td>Dataset original (541 pacientes, 42 variables)</td>
+                                <td><span class="badge badge-success">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>outliers_extremos_detalle.csv</td>
+                                <td>Reporte completo de outliers detectados</td>
+                                <td><span class="badge badge-success">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>outliers_boxplots.png</td>
+                                <td>Visualizaciones de outliers (9 variables críticas)</td>
+                                <td><span class="badge badge-success">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>PCOS_data_clean.csv</td>
+                                <td>Dataset limpio (post-eliminación y winsorización)</td>
+                                <td><span class="badge badge-warning">Pendiente</span></td>
+                            </tr>
+                            <tr>
+                                <td>feature_importance.csv</td>
+                                <td>Ranking de importancia de features</td>
+                                <td><span class="badge badge-warning">Pendiente</span></td>
+                            </tr>
+                            <tr>
+                                <td>modelos_entrenados/</td>
+                                <td>Modelos ML serializados (.pkl)</td>
+                                <td><span class="badge badge-warning">Pendiente</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CONTEXTO DEL PROYECTO -->
+            <div class="section">
+                <h2><span class="icon">📚</span>Contexto y Limitaciones</h2>
+                
+                <h3>Tipo de Estudio</h3>
+                <p><strong>Corte Transversal:</strong> Una medición por paciente en un momento específico.</p>
+                <ul>
+                    <li>✅ Permite identificar patrones y correlaciones</li>
+                    <li>✅ Útil para predicción y clasificación</li>
+                    <li>❌ No permite ver evolución temporal</li>
+                    <li>❌ No evalúa respuesta a tratamientos</li>
+                </ul>
+
+                <h3>Alcance del Proyecto</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px;">
+                        <h4 style="color: #2e7d32;">✅ Lo que SÍ podemos hacer:</h4>
+                        <ul>
+                            <li>Predicción de SOP basada en biomarcadores</li>
+                            <li>Identificación de fenotipos mediante clustering</li>
+                            <li>Análisis de correlaciones entre variables</li>
+                            <li>Sistema de screening inicial</li>
+                        </ul>
+                    </div>
+                    <div style="background: #ffebee; padding: 20px; border-radius: 10px;">
+                        <h4 style="color: #c62828;">❌ Lo que NO podemos hacer:</h4>
+                        <ul>
+                            <li>Diagnóstico clínico definitivo</li>
+                            <li>Evaluación de tratamientos</li>
+                            <li>Análisis de causalidad</li>
+                            <li>Predicción de evolución temporal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EQUIPO Y ROLES -->
+            <div class="section">
+                <h2><span class="icon">👥</span>Equipo y Roles</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Responsabilidades</th>
+                                <th>Módulos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Data Scientist Lead</strong></td>
+                                <td>EDA, limpieza, feature engineering, modelos ML</td>
+                                <td>Predictor binario, sistema de severidad</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bioinformatics Specialist</strong></td>
+                                <td>Clustering, caracterización clínica</td>
+                                <td>Fenotipos, análisis biológico</td>
+                            </tr>
+                            <tr>
+                                <td><strong>NLP/RAG Engineer</strong></td>
+                                <td>Procesamiento de PDFs, chatbot</td>
+                                <td>Knowledge base, RAG system</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Full-Stack Developer</strong></td>
+                                <td>Dashboard, integración, deploy</td>
+                                <td>Streamlit app, visualizaciones</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Proyecto Machine Learning - Síndrome de Ovario Poliquístico</strong></p>
+            <p>Octubre 2025 | Dataset: 541 pacientes, 42 variables</p>
