@@ -414,7 +414,7 @@ st.markdown("---")
 # TABS: CHAT + IMÁGENES
 # ==========================================
 
-tab1, tab2 = st.tabs(["💬 Chat Médico", "📸 Análisis de Imágenes"])
+tab1, tab2, tab3 = st.tabs(["💬 Chat Médico", "📸 Análisis de Imágenes", "🎥 Recursos"])
 
 # ========================================
 # TAB 1: CHAT
@@ -684,6 +684,241 @@ Si tienes dudas urgentes, contacta a tu médico. 💜
         for idx, item in enumerate(reversed(st.session_state.image_analyses)):
             with st.expander(f"{item['type']} - {item['timestamp']}", expanded=(idx==0)):
                 st.markdown(item['analysis'])
+
+# ========================================
+# TAB 3: RECURSOS MULTIMEDIA
+# ========================================
+
+with tab3:
+    st.markdown("## 🎥 Recursos Educativos sobre el SOP")
+    
+    st.info("""
+    💡 **Complementa tu aprendizaje** con estos recursos multimedia seleccionados 
+    especialmente para ti. Puedes consultarlos cuando quieras profundizar más sobre el SOP.
+    """)
+    
+    st.markdown("---")
+    
+    # ==========================================
+    # SECCIÓN VIDEO
+    # ==========================================
+    
+    st.markdown("### 📺 Video Educativo: Entendiendo el SOP")
+    
+    # Video principal centrado
+    col_space1, col_video, col_space2 = st.columns([0.5, 2, 0.5])
+    
+    with col_video:
+        st.video("https://www.youtube.com/watch?v=3SjmYGY5KZQ")
+        
+        st.caption("""
+        🎬 **Duración:** 7 minutos  
+        📚 **Contenido:** Qué es el SOP, síntomas principales, diagnóstico y opciones de tratamiento  
+        👩‍⚕️ **Presentado por:** [Nombre del especialista/canal]
+        """)
+    
+    # Botones de acción
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.link_button(
+            "▶️ Ver en YouTube",
+            "https://www.youtube.com/watch?v=3SjmYGY5KZQ",
+            use_container_width=True
+        )
+    
+    with col2:
+        st.link_button(
+            "📝 Ver transcripción",
+            "https://www.youtube.com/watch?v=3SjmYGY5KZQ",
+            use_container_width=True
+        )
+    
+    with col3:
+        st.link_button(
+            "💬 Compartir",
+            f"https://wa.me/?text=Mira este video sobre SOP: https://www.youtube.com/watch?v=3SjmYGY5KZQ",
+            use_container_width=True
+        )
+    
+    st.markdown("---")
+    
+    # ==========================================
+    # SECCIÓN PODCAST
+    # ==========================================
+    
+    st.markdown("### 🎙️ Podcast: Viviendo con SOP")
+    
+    st.markdown("""
+    Escucha experiencias reales, consejos prácticos y entrevistas con especialistas.
+    """)
+    
+    # Spotify embed centrado
+    col_space1, col_podcast, col_space2 = st.columns([0.5, 2, 0.5])
+    
+    with col_podcast:
+        st.markdown("""
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/episode/7CMJkpyco1zkT9L2Beb7O5?utm_source=generator" 
+        width="100%" height="232" frameBorder="0" 
+        allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy"></iframe>
+        """, unsafe_allow_html=True)
+        
+        st.caption("""
+        🎧 **Duración:** 17 minutos  
+        💬 **Temas:** Manejo emocional, tips de alimentación, historias de éxito  
+        🎤 **Anfitrión:** [Nombre del host]
+        """)
+    
+    # Botones de acción podcast
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.link_button(
+            "🎵 Abrir en Spotify",
+            "https://open.spotify.com/episode/7CMJkpyco1zkT9L2Beb7O5",
+            use_container_width=True
+        )
+    
+    with col2:
+        st.link_button(
+            "📱 Escuchar en app",
+            "https://open.spotify.com/episode/7CMJkpyco1zkT9L2Beb7O5",
+            use_container_width=True
+        )
+    
+    with col3:
+        st.link_button(
+            "💬 Compartir",
+            f"https://wa.me/?text=Escucha este podcast sobre SOP: https://open.spotify.com/episode/7CMJkpyco1zkT9L2Beb7O5",
+            use_container_width=True
+        )
+    
+    st.markdown("---")
+    
+    # ==========================================
+    # PLAYLIST / MÁS RECURSOS
+    # ==========================================
+    
+    st.markdown("### 📚 Más Recursos Recomendados")
+    
+    # Tabs secundarias para organizar más contenido
+    subtab1, subtab2, subtab3 = st.tabs(["🎥 Más Videos", "🎙️ Más Podcasts", "📖 Lecturas"])
+    
+    with subtab1:
+        st.markdown("#### Videos adicionales sobre SOP")
+        
+        video_col1, video_col2 = st.columns(2)
+        
+        with video_col1:
+            st.markdown("**🍎 Alimentación y SOP**")
+            st.video("https://www.youtube.com/watch?v=VIDEO_ID_2")
+            st.caption("10 min • Nutrición especializada")
+        
+        with video_col2:
+            st.markdown("**🏃‍♀️ Ejercicio para SOP**")
+            st.video("https://www.youtube.com/watch?v=VIDEO_ID_3")
+            st.caption("12 min • Rutinas recomendadas")
+        
+        st.markdown("---")
+        
+        video_col3, video_col4 = st.columns(2)
+        
+        with video_col3:
+            st.markdown("**🤰 Fertilidad y SOP**")
+            st.video("https://www.youtube.com/watch?v=VIDEO_ID_4")
+            st.caption("15 min • Opciones de tratamiento")
+        
+        with video_col4:
+            st.markdown("**🧠 Salud mental**")
+            st.video("https://www.youtube.com/watch?v=VIDEO_ID_5")
+            st.caption("8 min • Manejo emocional")
+    
+    with subtab2:
+        st.markdown("#### Serie de podcasts recomendados")
+        
+        # Lista de episodios
+        st.markdown("""
+        **🎧 Episodio 1: Mi diagnóstico de SOP**  
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/episode/EPISODE_ID_1?utm_source=generator" 
+        width="100%" height="152" frameBorder="0"></iframe>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        **🎧 Episodio 2: Hablemos de síntomas**  
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/episode/EPISODE_ID_2?utm_source=generator" 
+        width="100%" height="152" frameBorder="0"></iframe>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        **🎧 Episodio 3: Entrevista con endocrinólogo**  
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/episode/EPISODE_ID_3?utm_source=generator" 
+        width="100%" height="152" frameBorder="0"></iframe>
+        """, unsafe_allow_html=True)
+    
+    with subtab3:
+        st.markdown("#### Artículos y guías descargables")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            **📄 Documentos oficiales:**
+            - 📗 [Guía ESHRE 2023 (resumen)](https://www.eshre.eu/)
+            - 📘 [OMS - Salud reproductiva](https://www.who.int/)
+            - 📙 [CDC - Información sobre SOP](https://www.cdc.gov/)
+            """)
+            
+            # Botón de descarga de tu PDF
+            if os.path.exists("guia_sop.pdf"):
+                st.markdown("---")
+                with open("guia_sop.pdf", "rb") as pdf_file:
+                    st.download_button(
+                        label="📥 Descargar Guía Completa (PDF)",
+                        data=pdf_file,
+                        file_name="guia_sop_completa.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+        
+        with col2:
+            st.markdown("""
+            **🌐 Comunidades de apoyo:**
+            - 💬 [Grupo de apoyo SOP México](https://ejemplo.com)
+            - 💜 [Foro internacional SOP](https://ejemplo.com)
+            - 📱 [Instagram @sop_awareness](https://instagram.com)
+            
+            **📱 Apps recomendadas:**
+            - 📅 Flo (seguimiento de ciclos)
+            - 🍽️ MyFitnessPal (nutrición)
+            - 🧘‍♀️ Calm (meditación)
+            """)
+    
+    # ==========================================
+    # CALL TO ACTION FINAL
+    # ==========================================
+    
+    st.markdown("---")
+    
+    st.success("""
+    ### 💜 ¿Te fueron útiles estos recursos?
+    
+    **Sigue aprendiendo:**
+    - 💬 Regresa al **Chat** para hacer preguntas específicas
+    - 📸 Usa el **Análisis de Imágenes** para entender tus estudios
+    - 🗺️ Busca **profesionales** cerca de ti en el menú lateral
+    
+    ¡Recuerda que no estás sola en esto! 🤗
+    """)
 
 # ==========================================
 # SIDEBAR
