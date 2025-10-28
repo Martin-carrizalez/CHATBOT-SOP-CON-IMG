@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOMACHINE LAB - Proyecto SOP Insight</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+
+        h1 {
+            color: #FF6B35;
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 1.5em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .project-title {
+            background: linear-gradient(90deg, #FF6B35, #F7931E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2em;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FF6B35;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Team Section */
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #FF6B35;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 40px;
+            background: linear-gradient(180deg, #FF6B35, #F7931E);
+            border-radius: 5px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #FF6B35;
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255,107,53,0.3);
+        }
+
+        .member-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .member-role {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .member-focus {
+            color: #FF6B35;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .member-tasks {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .member-tasks li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .member-tasks li::before {
+            content: '▸';
+            position: absolute;
+            left: 5px;
+            color: #FF6B35;
+            font-weight: bold;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #FF6B35, #F7931E);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF6B35;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255,107,53,0.4);
+            z-index: 10;
+        }
+
+        .phase-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .phase-tasks {
+            list-style: none;
+        }
+
+        .phase-tasks li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .phase-tasks li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .tech-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+
+        .tech-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* Advantages */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .advantage-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .advantage-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .advantage-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .advantage-desc {
+            opacity: 0.9;
+        }
+
+        /* Budget */
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .budget-table th,
+        .budget-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .budget-table th {
+            background: #FF6B35;
+            color: white;
+            font-weight: 600;
+        }
+
+        .budget-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .total-row {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #FF6B35;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* CTA Button */
+        .cta-section {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(255,107,53,0.3);
+        }
+
+        .cta-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #FF6B35;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 40px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-date {
+                left: 20px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-placeholder">🏥</div>
+                <div>
+                    <h1>BIOMACHINE LAB</h1>
+                    <p class="tagline">Desciframos las señales del cuerpo</p>
+                </div>
+            </div>
+            <h2 class="project-title">SOP INSIGHT PLATFORM</h2>
+            <p style="color: #666; margin-top: 15px;">Análisis Integral del Síndrome de Ovario Poliquístico</p>
+        </div>
+
+        <!-- Stats Banner -->
+        <div class="stats-banner">
+            <div class="stat-card">
+                <div class="stat-number">14</div>
+                <div class="stat-label">Días de Desarrollo</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Módulos Innovadores</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">541</div>
+                <div class="stat-label">Pacientes Analizados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100</div>
+                <div class="stat-label">Papers Científicos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Modelos ML Avanzados</div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="section">
+            <h2 class="section-title">👥 Estructura del Equipo</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-icon">🤖</div>
+                    <div class="member-role">PERSONA 1</div>
+                    <div class="member-focus">ML Engineer / Data Scientist Lead</div>
+                    <ul class="member-tasks">
+                        <li>Sistema de Severidad (Opción B)</li>
+                        <li>Predictor Binario (SOP Sí/No)</li>
+                        <li>Modelos: RF, XGBoost, LightGBM</li>
+                        <li>SHAP Explanations</li>
+                        <li>Análisis de Riesgo Multi-nivel</li>
+                        <li>Feature Engineering Avanzado</li>
+                    </ul>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-icon">🧬</div>
+                    <div class="member-role">PERSONA 2</div>
+                    <div class="member-focus">Bioinformatics / Specialist</div>
+                    <ul class="member-tasks">
+                        <li>Clustering de Fenotipos (Opción A)</li>
+                        <li>Caracterización Clínica</li>
+                        <li>Algoritmos: K-means, DBSCAN, GMM</li>
+                        <li>UMAP/t-SNE Visualizations</li>
+                        <li>Treatment Matching por Fenotipo</li>
+                        <li>Validación con SPSS</li>
+                    </ul>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-icon">💬</div>
+                    <div class="member-role">PERSONA 3</div>
+                    <div class="member-focus">NLP / RAG Engineer</div>
+                    <ul class="member-tasks">
+                        <li>Knowledge Graph (Opción C)</li>
+                        <li>Chatbot RAG Educativo</li>
+                        <li>Procesamiento de 100 Papers</li>
+                        <li>Vector Database (ChromaDB)</li>
+                        <li>LLM Integration (Claude/GPT-4)</li>
+                        <li>Sistema de Citaciones Automáticas</li>
+                    </ul>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-icon">🎨</div>
+                    <div class="member-role">PERSONA 4</div>
+                    <div class="member-focus">Full-Stack / Integration Lead</div>
+                    <ul class="member-tasks">
+                        <li>Dashboard Streamlit Multi-página</li>
+                        <li>Integración de Modelos ML</li>
+                        <li>UI/UX Design + Custom CSS</li>
+                        <li>Visualizaciones Interactivas</li>
+                        <li>Deploy & DevOps</li>
+                        <li>Testing & Documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="section">
+            <h2 class="section-title">📅 Plan de Trabajo - 14 Días</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Días 1-3</div>
+                    <div class="timeline-content">
+                        <div class="phase-title">FASE 1: FUNDACIÓN</div>
+                        <ul class="phase-tasks">
+                            <li>Setup de repositorio GitHub</li>
+                            <li>Limpieza y EDA del dataset</li>
+                            <li>Análisis estadístico básico (ANOVA, t-tests)</li>
+                            <li>Validación con SPSS</li>
+                            <li>Arquitectura del sistema</li>
+                            <li>Planificación de APIs internas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Días 4-7</div>
+                    <div class="timeline-content">
+                        <div class="phase-title">FASE 2A: DESARROLLO PARALELO</div>
+                        <ul class="phase-tasks">
+                            <li>P1: Predictor binario + Feature engineering</li>
+                            <li>P2: Clustering exploratorio + UMAP</li>
+                            <li>P3: Adquisición y procesamiento de papers</li>
+                            <li>P4: Estructura Streamlit + páginas estáticas</li>
+                            <li>Daily standups de sincronización</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Días 8-10</div>
+                    <div class="timeline-content">
+                        <div class="phase-title">FASE 2B: COMPONENTES AVANZADOS</div>
+                        <ul class="phase-tasks">
+                            <li>P1: Sistema de severidad completo</li>
+                            <li>P2: Caracterización de fenotipos + tratamientos</li>
+                            <li>P3: RAG pipeline + chatbot funcional</li>
+                            <li>P4: Integración de modelos ML en UI</li>
+                            <li>Testing de componentes individuales</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Días 11-14</div>
+                    <div class="timeline-content">
+                        <div class="phase-title">FASE 3: INTEGRACIÓN & ENTREGA</div>
+                        <ul class="phase-tasks">
+                            <li>Integración completa de todos los módulos</li>
+                            <li>Testing end-to-end y debugging</li>
+                            <li>Optimización de performance (caching)</li>
+                            <li>Documentación técnica completa</li>
+                            <li>Deploy a Streamlit Cloud</li>
+                            <li>Video demo y materiales de presentación</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="section">
+            <h2 class="section-title">🛠️ Stack Tecnológico</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">🐍</div>
+                    Python 3.10+
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📊</div>
+                    SPSS Statistics
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎨</div>
+                    Streamlit
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🤖</div>
+                    Scikit-learn
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    XGBoost
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">💡</div>
+                    LightGBM
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔍</div>
+                    SHAP
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🗺️</div>
+                    UMAP
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔗</div>
+                    LangChain
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🗄️</div>
+                    ChromaDB
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🧠</div>
+                    Claude API
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📈</div>
+                    Plotly
+                </div>
+            </div>
+        </div>
+
+        <!-- Advantages -->
+        <div class="section">
+            <h2 class="section-title">🏆 Ventajas Competitivas</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-title">Completitud</div>
+                    <div class="advantage-desc">Análisis estadístico + ML + clustering + RAG + UI en una plataforma integral</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">💡</div>
+                    <div class="advantage-title">Triple Innovación</div>
+                    <div class="advantage-desc">Fenotipos de SOP + Sistema de Severidad + Chatbot Educativo RAG</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">📚</div>
+                    <div class="advantage-title">Rigor Científico</div>
+                    <div class="advantage-desc">Respaldado por 100 papers científicos + validación con SPSS</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">⚕️</div>
+                    <div class="advantage-title">Aplicabilidad Clínica</div>
+                    <div class="advantage-desc">Estratificación de pacientes + tratamientos personalizados por fenotipo</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">🎓</div>
+                    <div class="advantage-title">Valor Educativo</div>
+                    <div class="advantage-icon">Chatbot para educar a pacientes y profesionales sobre SOP</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">🚀</div>
+                    <div class="advantage-title">Escalabilidad</div>
+                    <div class="advantage-desc">Arquitectura modular lista para producción y FemTech real</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">🔓</div>
+                    <div class="advantage-title">Reproducibilidad</div>
+                    <div class="advantage-desc">Código abierto + documentación completa + notebooks</div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">💰</div>
+                    <div class="advantage-title">Bajo Costo</div>
+                    <div class="advantage-desc">~$20 USD total + herramientas gratuitas (Streamlit Cloud, GitHub)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget -->
+        <div class="section">
+            <h2 class="section-title">💰 Presupuesto del Proyecto</h2>
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Herramienta</th>
+                        <th>Costo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chatbot LLM</td>
+                        <td>Claude API / GPT-4</td>
+                        <td>$15-20 USD</td>
+                    </tr>
+                    <tr>
+                        <td>Hosting Web</td>
+                        <td>Streamlit Cloud</td>
+                        <td>$0 (Free Tier)</td>
+                    </tr>
+                    <tr>
+                        <td>Repositorio</td>
+                        <td>GitHub Public</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Vector Database</td>
+                        <td>ChromaDB (local)</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Papers Científicos</td>
+                        <td>PubMed + Open Access</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Análisis Estadístico</td>
+                        <td>SPSS (ya disponible)</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2">TOTAL ESTIMADO</td>
+                        <td>$15-20 USD</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 20px; color: #666; font-style: italic;">
+                * Alternativa 100% gratuita: Usar Ollama + Llama 3.1 local (requiere GPU)
+            </p>
+        </div>
+
+        <!-- Deliverables -->
+        <div class="section">
+            <h2 class="section-title">📦 Entregables Finales</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 4px solid #FF6B35;">
+                    <h3 style="color: #FF6B35; margin-bottom: 15px;">🌐 Plataforma Web</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ 5 páginas funcionales</li>
+                        <li>✓ 3 modelos ML integrados</li>
+                        <li>✓ Chatbot RAG educativo</li>
+                        <li>✓ Visualizaciones interactivas</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">📄 Reporte Científico</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Análisis estadístico completo</li>
+                        <li>✓ Metodología ML detallada</li>
+                        <li>✓ Caracterización de fenotipos</li>
+                        <li>✓ Referencias a 100 papers</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 4px solid #764ba2;">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">💻 Código & Docs</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Repo GitHub público</li>
+                        <li>✓ README espectacular</li>
+                        <li>✓ Notebooks reproducibles</li>
+                        <li>✓ Tests unitarios</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 4px solid #f5576c;">
+                    <h3 style="color: #f5576c; margin-bottom: 15px;">🎬 Presentación</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Video demo (3-5 min)</li>
+                        <li>✓ Slides profesionales</li>
+                        <li>✓ Executive summary</li>
+                        <li>✓ Poster científico</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2 class="cta-title">¿Listos para cambiar el diagnóstico de SOP?</h2>
+            <p class="cta-text">14 días para crear una plataforma que podría ayudar a millones de mujeres</p>
+            <button class="cta-button" onclick="alert('¡Vamos BIOMACHINE LAB! 🚀')">COMENCEMOS EL PROYECTO</button>
+            <div style="margin-top: 30px; opacity: 0.9;">
+                <p style="font-size: 1.1em;">Reunión de Kickoff: Setup + Asignación de Tareas</p>
+                <p style="font-size: 0.9em; margin-top: 10px;">Próximo paso: Crear repositorio GitHub y comenzar EDA</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animación de scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Efecto hover en stats
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(135deg, #FF6B35, #F7931E)';
+                this.style.color = 'white';
+                this.querySelector('.stat-number').style.color = 'white';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'white';
+                this.style.color = '#333';
+                this.querySelector('.stat-number').style.color = '#FF6B35';
+            });
+        });
+    </script>
+</body>
+</html>
