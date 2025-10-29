@@ -20,6 +20,93 @@ st.set_page_config(
     page_icon="💜",
     layout="wide"
 )
+# ==========================================
+# CSS PERSONALIZADO PARA TABS
+# ==========================================
+
+st.markdown("""
+<style>
+    /* Estilo general de las tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background-color: #f0f2f6;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    /* Tabs individuales (no seleccionadas) */
+    .stTabs [data-baseweb="tab"] {
+        height: 60px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 0px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    
+    /* Hover en tabs */
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #f8f9fa;
+        border-color: #e0e0e0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* TAB 1 - Chat (Morado) */
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"]:nth-child(1) {
+        background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        color: white !important;
+        border-color: #8e44ad;
+        box-shadow: 0 4px 12px rgba(155, 89, 182, 0.4);
+    }
+    
+    /* TAB 2 - Imágenes (Azul) */
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"]:nth-child(2) {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);  /* Rojo coral */
+        color: white !important;
+        border-color: #2980b9;
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+    }
+    
+    /* TAB 3 - Recursos (Rosa) */
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"]:nth-child(3) {
+        background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+        color: white !important;
+        border-color: #c2185b;
+        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.4);
+    }
+    
+    /* Efecto de selección */
+    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+        transform: scale(1.05);
+    }
+    
+    /* Línea indicadora debajo (esconder la default) */
+    .stTabs [data-baseweb="tab-highlight"] {
+        background-color: transparent;
+    }
+    
+    /* Panel de contenido con padding */
+    .stTabs [data-baseweb="tab-panel"] {
+        padding-top: 20px;
+    }
+            
+    /* Tabs NO seleccionadas - más visibles */
+    .stTabs [data-baseweb="tab"] {
+        background-color: #f8f9fa;  /* Más claro */
+        border: 2px solid #e0e0e0;
+        color: #555 !important;     /* Texto más oscuro */
+    }
+
+    /* Hover más evidente */
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #e8eaf0;
+        border-color: #9b59b6;      /* Borde morado al hover */
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # ==========================================
 # CONFIGURACIÓN API
@@ -85,8 +172,6 @@ def load_vectorstore():
 
 with st.spinner("📚 Cargando base de conocimiento..."):
     vectorstore = load_vectorstore()
-
-st.success("✅ Sistema listo")
 
 # ==========================================
 # SYSTEM PROMPT
@@ -396,8 +481,30 @@ Te recomiendo:
 # ==========================================
 # UI PRINCIPAL
 # ==========================================
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap');
+</style>
 
-st.markdown('<h1 style="color: #9b59b6;">💜 Guía Educativa SOP Avanzada</h1>', unsafe_allow_html=True)
+<div style="text-align: center; margin: 20px 0;">
+    <span style="font-size: 60px; filter: drop-shadow(0 4px 8px rgba(155, 89, 182, 0.5));">💜</span>
+    <h1 style="
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #9b59b6 0%, #667eea 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 56px;
+        font-weight: 900;
+        margin: 10px 0;
+        display: inline;
+        filter: drop-shadow(3px 3px 6px rgba(155, 89, 182, 0.3));
+        letter-spacing: -1px;
+    ">
+    Guía Educativa SOP Avanzada
+    </h1>
+</div>
+""", unsafe_allow_html=True)
 st.markdown("*Con Hugging Face + Gemini 2.0 Flash + Análisis de Imágenes*")
 
 st.markdown("""
@@ -929,30 +1036,110 @@ with st.sidebar:
         st.image("logo.png", width=200)
     
     st.markdown("---")
-    # 🗺️ BUSCAR PROFESIONALES👩‍⚕️
-    st.markdown("🗺️ Buscar Profesionales 👩‍⚕️")
-    st.caption("Encuentra especialistas en tu zona")
-    
+
+    # 🗺️ BUSCAR PROFESIONALES - DESTACADO
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #00d4ff 0%, #0096c7 50%, #023e8a 100%);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        margin-bottom: 20px;
+        border: 2px solid rgba(0, 212, 255, 0.5);
+    ">
+        <div style="text-align: center; margin-bottom: 10px;">
+            <span style="font-size: 36px;">🗺️👩‍⚕️</span>
+        </div>
+        <h3 style="
+            color: white;
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        ">
+            Buscar Profesionales
+        </h3>
+        <p style="
+            color: rgba(255,255,255,0.95);
+            margin: 0;
+            font-size: 14px;
+            text-align: center;
+        ">
+            ✨ Encuentra especialistas cerca de ti 👇
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     user_city = st.text_input(
-        "Tu ciudad o municipio ⚕️",
-        placeholder="Ej: Guadalajara",
-        key="city_search"
+        "📍 Tu ciudad o municipio",
+        placeholder="Ej: Guadalajara, Zapopan, Tlaquepaque...",
+        key="city_search",
+        help="Escribe tu ciudad para buscar especialistas en SOP"
     )
-    
+
     if user_city:
-        st.markdown("**Buscar en Google Maps:**")
+        st.success(f"🔍 Buscando en **{user_city}**...")
         
         gine_search = f"https://www.google.com/maps/search/ginecólogo+SOP+{user_city.replace(' ', '+')}"
         endo_search = f"https://www.google.com/maps/search/endocrinólogo+{user_city.replace(' ', '+')}"
         psico_search = f"https://www.google.com/maps/search/psicólogo+{user_city.replace(' ', '+')}"
         nutri_search = f"https://www.google.com/maps/search/nutriólogo+{user_city.replace(' ', '+')}"
         
+        # Estilo para botones
+        st.markdown("""
+        <style>
+            /* Botones de profesionales - cada uno con su color */
+            div.stLinkButton:nth-of-type(1) > a {
+                background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%) !important;
+                color: white !important;
+                font-weight: 600 !important;
+                border: none !important;
+                padding: 12px 20px !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            div.stLinkButton:nth-of-type(2) > a {
+                background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+                color: white !important;
+                font-weight: 600 !important;
+                border: none !important;
+                padding: 12px 20px !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            div.stLinkButton:nth-of-type(3) > a {
+                background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%) !important;
+                color: white !important;
+                font-weight: 600 !important;
+                border: none !important;
+                padding: 12px 20px !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            div.stLinkButton:nth-of-type(4) > a {
+                background: linear-gradient(135deg, #27ae60 0%, #229954 100%) !important;
+                color: white !important;
+                font-weight: 600 !important;
+                border: none !important;
+                padding: 12px 20px !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            div.stLinkButton > a:hover {
+                transform: translateY(-3px) !important;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.25) !important;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+        
         st.link_button("🩺 Ginecólogos", gine_search, use_container_width=True)
         st.link_button("💉 Endocrinólogos", endo_search, use_container_width=True)
         st.link_button("🧠 Psicólogos", psico_search, use_container_width=True)
         st.link_button("🥗 Nutriólogos", nutri_search, use_container_width=True)
         
-        st.caption("💡 Se abrirán en Google Maps")
+        st.caption("💡 Los resultados se abrirán en Google Maps")
+    else:
+        st.info("👆 Escribe tu ciudad arriba para comenzar la búsqueda")
 
     # Preguntas rápidas
     st.markdown("---")
