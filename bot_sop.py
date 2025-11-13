@@ -568,6 +568,17 @@ Soy tu **guía educativa sobre el Síndrome de Ovario Poliquístico (SOP)**.
     
 # Input del usuario
 if prompt := st.chat_input("Escribe tu pregunta sobre SOP... 💭"):
+
+    # ✅ RATE LIMITING AQUÍ
+    import time
+    time_since_last = time.time() - st.session_state.get('last_request_time', 0)
+    
+    if time_since_last < 4:  # Mínimo 4 segundos entre preguntas
+        st.warning(f"⏳ Espera {4 - int(time_since_last)} segundos más antes de preguntar")
+        st.stop()
+    
+    # Actualizar timestamp
+    st.session_state.last_request_time = time.time()
     
     # Agregar mensaje del usuario
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -662,6 +673,14 @@ with tab2:
         
         with col_analysis:
             if st.button("🔍 Analizar Educativamente", type="primary", use_container_width=True):
+                # ✅ AGREGAR RATE LIMITING AQUÍ
+                time_since_last = time.time() - st.session_state.get('last_request_time', 0)
+                
+                if time_since_last < 4:
+                    st.warning(f"⏳ Espera {4 - int(time_since_last)} segundos más")
+                    st.stop()
+                
+                st.session_state.last_request_time = time.time()
                 with st.spinner("📊 Analizando imagen..."):
                     try:
                         img = PIL.Image.open(uploaded_file)
