@@ -147,6 +147,14 @@ model = genai.GenerativeModel(
 @st.cache_resource
 def load_vectorstore():
     """Carga vectorstore con Hugging Face embeddings"""
+    # 🔥 TEMPORAL: Limpiar BD corrupta
+    import shutil
+    if os.path.exists("./chroma_db_sop"):
+        try:
+            shutil.rmtree("./chroma_db_sop")
+            st.warning("🔄 Regenerando base de datos...")
+        except:
+            pass
     
     if not os.path.exists("./chroma_db_sop"):
         st.error("""
