@@ -125,7 +125,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 # ==========================================
 
 model = genai.GenerativeModel(
-    'gemini-2.0-flash-exp',
+    'gemini-2.5-flash-lite',
     generation_config={
         "temperature": 0.3,
         "top_p": 0.8,
@@ -147,14 +147,6 @@ model = genai.GenerativeModel(
 @st.cache_resource
 def load_vectorstore():
     """Carga vectorstore con Hugging Face embeddings"""
-    # 🔥 TEMPORAL: Limpiar BD corrupta
-    import shutil
-    if os.path.exists("./chroma_db_sop"):
-        try:
-            shutil.rmtree("./chroma_db_sop")
-            st.warning("🔄 Regenerando base de datos...")
-        except:
-            pass
     
     if not os.path.exists("./chroma_db_sop"):
         st.error("""
@@ -482,7 +474,7 @@ Te recomiendo:
         if "safety" in error_str or "block" in error_str:
             return "⚠️ Mi sistema de seguridad bloqueó esta respuesta. Intenta reformular tu pregunta o consulta directamente con tu médico. 💜"
         elif "quota" in error_str or "429" in error_str:
-            return "⏱️ He alcanzado mi límite de uso. Intenta más tarde. 💜"
+            return f"⏱️ He alcanzado mi límite de uso. Intenta en 1 minuto. 💜"
         else:
             return f"❌ Error técnico. Intenta de nuevo. 💜"
 
@@ -576,18 +568,18 @@ Soy tu **guía educativa sobre el Síndrome de Ovario Poliquístico (SOP)**.
     
 # Input del usuario
 if prompt := st.chat_input("Escribe tu pregunta sobre SOP... 💭"):
-
-    # ✅ RATE LIMITING AQUÍ
+    # Rate limiting: 15 RPM Flash-Lite = 1 cada 4 segundos
     import time
-    time_since_last = time.time() - st.session_state.get('last_request_time', 0)
+    if 'last_request_time' not in st.session_state:
+        st.session_state.last_request_time = 0
     
-    if time_since_last < 4:  # Mínimo 4 segundos entre preguntas
-        st.warning(f"⏳ Espera {4 - int(time_since_last)} segundos más antes de preguntar")
+    wait_time = 4 - (time.time() - st.session_state.last_request_time)
+    if wait_time > 0:
+        st.warning(f"⏳ Espera {int(wait_time)} segundos más")
         st.stop()
     
-    # Actualizar timestamp
     st.session_state.last_request_time = time.time()
-    
+
     # Agregar mensaje del usuario
     st.session_state.messages.append({"role": "user", "content": prompt})
     
@@ -681,14 +673,6 @@ with tab2:
         
         with col_analysis:
             if st.button("🔍 Analizar Educativamente", type="primary", use_container_width=True):
-                # ✅ AGREGAR RATE LIMITING AQUÍ
-                time_since_last = time.time() - st.session_state.get('last_request_time', 0)
-                
-                if time_since_last < 4:
-                    st.warning(f"⏳ Espera {4 - int(time_since_last)} segundos más")
-                    st.stop()
-                
-                st.session_state.last_request_time = time.time()
                 with st.spinner("📊 Analizando imagen..."):
                     try:
                         img = PIL.Image.open(uploaded_file)
@@ -1200,7 +1184,9 @@ with st.sidebar:
     st.caption("🧠 Hugging Face embeddings")
     st.caption("🔍 Búsqueda semántica")
     st.caption("📸 Análisis de imágenes")
-    st.caption("🤖 Gemini 2.0 Flash")
+    st.caption("🤖 Gemini 2.5 Flash")
+    st.caption("📊 Límite: 15 consultas/minuto")
+
     
     st.markdown("---")
     st.markdown("### 💬 Controles")

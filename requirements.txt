@@ -4,7 +4,7 @@ langchain
 langchain-google-genai
 langchain-community
 chromadb
-pypdf
+pypdf2
 pillow
 python-dotenv
 sentence-transformers
